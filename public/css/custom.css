@@ -1,0 +1,83 @@
+.bg-green {
+	background-color: #12858e;
+	color: white;
+}
+.small-btn {
+	padding: 0px 10px;
+}
+.btn-curve {
+	border-radius: 20px;
+}
+.header {
+	position: fixed;
+    width: 100%;
+    margin: 0;
+    padding: 5px 10px;
+    background-color: #ffffff;
+    box-shadow: 0 0 2px rgb(0 0 0 / 30%);
+    z-index: 2;
+}
+.title {
+	float: left;
+	font-family: Chiller;    
+	font-size: 20px;
+}
+.logout {    
+	float: right;
+    color: #f75b58;
+    font-size: 22px;
+}
+.custom-card {
+    margin: 0;
+    background-color: #ffffff;
+    box-shadow: 0 0 2px rgb(0 0 0 / 30%);
+}
+.custom-card-header {
+    background-color: #505e6b;
+    padding: 5px 10px;
+    height: 35px;
+}
+.card-title {
+	float: left;
+}
+.card-btn {
+	float: right;
+    font-size: 0px;
+    border-radius: 50%;
+}
+.card-body {
+	padding: 10PX;
+}
+.sidebar {
+    position: fixed;
+    padding-top: 50px;
+    background-color: #2d353c;
+    height: 100%;
+    width: 180px;
+    z-index: 1;
+}
+.nav-item {
+	color: #a8acb1;
+	font-size: 12px;
+	padding: 7px 3px;
+}
+.nav-item:hover {
+	color: white;
+	text-decoration: none;
+}
+.nav-item:focus {
+	color: white;
+	text-decoration: none;
+}
+.active-class {
+	color: white;
+    background-color: #7d847d;
+}
+.menu-icon {
+	font-size: 12px;
+    padding-right: 5px;
+}
+.body {    
+	margin-left: 180px;
+    padding: 60px 20px;
+}
