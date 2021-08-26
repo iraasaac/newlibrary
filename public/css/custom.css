@@ -74,10 +74,13 @@
     background-color: #7d847d;
 }
 .menu-icon {
-	font-size: 12px;
+	font-size: 13px;
     padding-right: 5px;
 }
 .body {    
 	margin-left: 180px;
     padding: 60px 20px;
+}
+.nodecoration a {
+	text-decoration: none;
 }

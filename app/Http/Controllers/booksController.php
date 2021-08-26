@@ -4,6 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\books;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use App\Http\Controllers\Controller;
+use Session;
 
 class booksController extends Controller
 {
@@ -102,4 +107,131 @@ class booksController extends Controller
         }
         return 'Not found';
     }
+
+
+
+
+    // users functions
+    public function users()
+    {
+        return User::get();
+    }
+    public function register(Request $request)
+    {
+        try {
+            $user = new User();
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->password = Hash::make($request->password);
+            $user->save();
+
+            $success = true;
+            $message = 'User register successfully';
+        } catch (\Illuminate\Database\QueryException $ex) {
+            $success = false;
+            $message = $ex->getMessage();
+        }
+
+        // response
+        $response = [
+            'success' => $success,
+            'message' => $message,
+        ];
+        return response()->json($response);
+    }
+    public function login(Request $request) {
+        $credentials = [
+            'email' => $request->email,
+            'password' => $request->password,
+        ];
+
+        if (Auth::attempt($credentials)) {
+            $success = true;
+            $message = 'User login successfully';
+        } 
+        else {
+            $success = false;
+            $message = 'Invalid credentials';
+        }
+
+        // response
+        $response = [
+            'success' => $success,
+            'message' => $message,
+        ];
+        return response()->json($response);
+    }
+    public function logout()
+    {
+        try {
+            Session::flush();
+            $success = true;
+            $message = 'Successfully logged out';
+        } catch (\Illuminate\Database\QueryException $ex) {
+            $success = false;
+            $message = $ex->getMessage();
+        }
+
+        // response
+        $response = [
+            'success' => $success,
+            'message' => $message,
+        ];
+        return response()->json($response);
+    }
+    public function deleteuser($id)
+    {
+        $usertodelete = User::find($id);
+        if ($usertodelete) {
+            $usertodelete->delete();
+            return response()->json('success');
+        }
+        return 'Not found';
+    }
+    public function edituser($id)
+    {
+        $book = User::find($id);
+        return response()->json($book);
+    }
+    public function updateuser(Request $request, $id)
+    {
+        $usertoupdate = User::find($id);
+        if ($usertoupdate) {
+            $usertoupdate->name = $request->input('name');
+            $usertoupdate->email = $request->input('email');
+            $usertoupdate->password = Hash::make($request->password);
+            $usertoupdate->save();
+            return $usertoupdate;
+        }
+        return 'Not found';
+    }
+
+    // Counting
+    public function getbooksinfo()
+    {
+        $allbooks = books::get();
+        $totalallbooks = $allbooks->count();
+        $availablebooks = books::where('book_availability', '==', 1)->get();
+        $totalavailablebooks = $availablebooks->count();
+        $unavailablebooks = books::where('book_availability', '==', 0)->get();
+        $totalunavailablebooks = $unavailablebooks->count();
+        $response = [
+            'success' => true,
+            'allbooks' => $totalallbooks,
+            'available' => $totalavailablebooks,
+            'unavailable' => $totalunavailablebooks,
+        ];
+        return response()->json($response);
+    }
+    public function getusersnumber()
+    {
+        $allusers = User::get();
+        $totalallusers = $allusers->count();
+        $response = [
+            'success' => true,
+            'users' => $totalallusers
+        ];
+        return response()->json($response);
+    }
+
 }

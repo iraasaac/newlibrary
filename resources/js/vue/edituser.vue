@@ -3,34 +3,31 @@
         <div class="col-md-4">
             <div class="card custom-card">
                 <div class="custom-card-header">
-                    <h6 class="text-white">Edit Book</h6>
+                    <h6 class="text-white">Edit User</h6>
                 </div>
                 <div class="card-body">
-                    <form @submit.prevent="updateBook">
+                    <form @submit.prevent="updateuser">
                         <div class="row">
                             <div class="col-12 mb-2">
                                 <div class="form-group">
-                                    <label>Book Title</label>
-                                    <input type="text" class="form-control" v-model="book.book_title">
+                                    <label>User Names</label>
+                                    <input required type="text" class="form-control" v-model="user.name" placeholder="Ex: Aizo Kini">
                                 </div>
                             </div>
                             <div class="col-12 mb-2">
                                 <div class="form-group">
-                                    <label>Book Author</label>
-                                    <input type="text" class="form-control" v-model="book.book_author">
+                                    <label>User Email</label>
+                                    <input required type="email" class="form-control" v-model="user.email" placeholder="Ex: aizokini@gmail.com">
                                 </div>
                             </div>
                             <div class="col-12 mb-2">
                                 <div class="form-group">
-                                    <label>Available</label>
-                                    <select class="form-control" v-model="book.book_availability" required>
-                                    	<option value="1">Yes</option>
-                                    	<option value="0">No</option>
-                                    </select>
+                                    <label>User Password</label>
+                                    <input required type="password" class="form-control" v-model="user.password" placeholder="*******">
                                 </div>
                             </div>
                             <div class="col-12">
-                                <button type="submit" class="btn form-control bg-green btn-sm btn-curve text-white">Update Book</button>
+                                <button type="submit" class="btn bg-green form-control btn-sm btn-curve text-white">Save User</button>
                             </div>
                         </div>                        
                     </form>
@@ -43,26 +40,26 @@
 	export default {
         data() {
             return {
-                book: {}
+                user: {}
             }
         },
         mounted(){
-            this.showbook()
+            this.showuser()
         },
         methods: {
-            showbook() {
+            showuser() {
                 this.axios
-                    .get(`http://127.0.0.1:8000/api/editbook/${this.$route.params.id}`)
+                    .get(`http://127.0.0.1:8000/api/edituser/${this.$route.params.id}`)
                     .then((response) => {
-                        this.book = response.data;
+                        this.user = response.data;
                     });
             },
-            updateBook() {
+            updateuser() {
                 this.axios
-                    .post(`/api/updatebook/${this.$route.params.id}`, this.book)
-                    .then((response) => {
-                        this.$router.push({name: 'books'});
-                    });
+                .post(`/api/updateuser/${this.$route.params.id}`, this.user)
+                .then((response) => {
+                    this.$router.push({name: 'users'});
+                });
             }
         },
         beforeRouteEnter(to, from, next) {
