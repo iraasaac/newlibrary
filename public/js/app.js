@@ -2356,7 +2356,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   beforeRouteEnter: function beforeRouteEnter(to, from, next) {
     if (!window.Laravel.isLoggedin) {
-      window.location.href = "/";
+      window.location.href = "/login";
     }
 
     next();
